@@ -25,6 +25,7 @@ class NewPostController extends Controller
     public function create()
     {
         //
+        return "Creation Merhod";
     }
 
     /**
@@ -47,6 +48,7 @@ class NewPostController extends Controller
     public function show($id)
     {
         //
+        return "This is the show method";
     }
 
     /**

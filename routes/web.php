@@ -39,4 +39,9 @@ Route::get('/', function () {
 
 // }));
 
+// using route and coontrollers
 Route::get('/post/{id}', 'NewPostController@index');
+
+// using resource
+
+Route::resource('posts', "NewPostController");
