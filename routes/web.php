@@ -40,10 +40,12 @@ Route::get('/', function () {
 // }));
 
 // using route and coontrollers
-Route::get('/post/{id}', 'NewPostController@index');
+// Route::get('/post/{id}', 'NewPostController@index');
 
 // using resource
 
 Route::resource('posts', "NewPostController");
 
 Route::get('/contact', 'NewPostController@contact');
+
+Route::get('post/{id}/{name}/{password}', 'NewPostController@showPost');
