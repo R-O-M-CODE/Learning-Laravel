@@ -45,3 +45,5 @@ Route::get('/post/{id}', 'NewPostController@index');
 // using resource
 
 Route::resource('posts', "NewPostController");
+
+Route::get('/contact', 'NewPostController@contact');

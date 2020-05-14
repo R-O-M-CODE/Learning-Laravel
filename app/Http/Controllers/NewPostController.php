@@ -25,7 +25,7 @@ class NewPostController extends Controller
     public function create()
     {
         //
-        return "Creation Merhod";
+        return "Creation Method";
     }
 
     /**
@@ -83,5 +83,11 @@ class NewPostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function contact()
+    {
+        //
+        return view('contact');
     }
 }
