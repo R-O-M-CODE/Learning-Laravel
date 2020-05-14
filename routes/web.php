@@ -44,8 +44,41 @@ Route::get('/', function () {
 
 // using resource
 
-Route::resource('posts', "NewPostController");
+// Route::resource('posts', "NewPostController");
 
-Route::get('/contact', 'NewPostController@contact');
+// Route::get('/contact', 'NewPostController@contact');
 
-Route::get('post/{id}/{name}/{password}', 'NewPostController@showPost');
+// Route::get('post/{id}/{name}/{password}', 'NewPostController@showPost');
+
+/*
+-------------------------------------
+ Application Routes
+-------------------------------------
+*/
+
+// Creating or inserting into database
+Route::get('/insert', function(){
+    DB::insert('insert into posts(title, content) values(?,?)', ['PHP with laravel', 'Php is the best thing that has happened to laravel']);
+});
+
+// read
+Route::get('/read', function(){
+    $results = DB::select('select * from posts where id=?', [1]);
+
+    foreach($results as $post){
+        return $post->content;
+    }
+});
+
+// Update
+Route::get('/update', function(){
+    $updated = DB::update('update posts set title="Updated title" where id=?', [1]);
+    return $updated;
+});
+
+// Delete
+
+Route::get('/delete', function(){
+    $del = DB::delete('delete from posts where id=?', [1]);
+    return $del;
+});
