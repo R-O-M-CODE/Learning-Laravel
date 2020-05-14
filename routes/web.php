@@ -17,24 +17,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/about', function () {
-    return "About US";
-});
+// Route::get('/about', function () {
+//     return "About US";
+// });
 
 
-Route::get('/contact', function () {
-    return "Contact Us";
-});
+// Route::get('/contact', function () {
+//     return "Contact Us";
+// });
 
-Route::get('/post/{id}/{name}', function($id,$name){
-    return "This is post number ". $id ." published by ".$name;
-});
+// Route::get('/post/{id}/{name}', function($id,$name){
+//     return "This is post number ". $id ." published by ".$name;
+// });
 
-// naming routes
-Route::get('admin/posts/example', array('as'=>'admin.home' ,function(){
+// // naming routes
+// Route::get('admin/posts/example', array('as'=>'admin.home' ,function(){
 
-    $url = route('admin.home');
+//     $url = route('admin.home');
 
-    return "This url is ". $url;
+//     return "This url is ". $url;
 
-}));
+// }));
+
+Route::get('/post/{id}', 'NewPostController@index');
