@@ -87,8 +87,10 @@ class NewPostController extends Controller
 
     public function contact()
     {
-        //
-        return view('contact');
+
+        $people = [];
+        return view('contact', compact('people'));
+
     }
 
     public function showPost($id, $name, $password)
