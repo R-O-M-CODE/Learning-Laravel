@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Post;
+use App\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -203,3 +204,33 @@ Route::get('/forcedelete', function(){
     Post::onlyTrashed()->where('is_admin', 0)->forceDelete();
 });
 
+/*
+-------------------------------------
+ ELOQUENt Relationship
+-------------------------------------
+*/
+
+// 1 to 1 relationship
+
+Route::get('/user/{id}/post', function($id){
+
+
+    return User::find($id)->post;
+
+});
+
+// Inverse relation
+
+Route::get('/post/{id}/user', function($id){
+    return Post::find($id)->user->name;
+});
+
+// one to many relationship
+
+Route::get('/posts', function(){
+    $user = User::find(1);
+
+    foreach ($user->posts as $post){
+        echo $post->title."<br/>";
+    }
+});
