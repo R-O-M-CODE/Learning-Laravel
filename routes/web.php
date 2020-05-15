@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Post;
 use App\User;
+use App\Role;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -232,5 +233,14 @@ Route::get('/posts', function(){
 
     foreach ($user->posts as $post){
         echo $post->title."<br/>";
+    }
+});
+
+// many to many relationship
+Route::get('/user/{id}/role', function($id){
+    $user = User::find($id);
+
+    foreach ($user->roles as $role){
+        return $role->name;
     }
 });
