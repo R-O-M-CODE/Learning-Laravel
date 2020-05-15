@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,24 +61,145 @@ Route::get('/insert', function(){
     DB::insert('insert into posts(title, content) values(?,?)', ['PHP with laravel', 'Php is the best thing that has happened to laravel']);
 });
 
-// read
+// // read
+// Route::get('/read', function(){
+//     $results = DB::select('select * from posts where id=?', [1]);
+
+//     foreach($results as $post){
+//         return $post->content;
+//     }
+// });
+
+// // Update
+// Route::get('/update', function(){
+//     $updated = DB::update('update posts set title="Updated title" where id=?', [1]);
+//     return $updated;
+// });
+
+// // Delete
+
+// Route::get('/delete', function(){
+//     $del = DB::delete('delete from posts where id=?', [1]);
+//     return $del;
+// });
+
+/*
+-------------------------------------
+ ELOQUENt
+-------------------------------------
+*/
+// loop through the post table the title
 Route::get('/read', function(){
-    $results = DB::select('select * from posts where id=?', [1]);
 
-    foreach($results as $post){
-        return $post->content;
+    $posts = Post::all();
+    foreach ($posts as $post) {
+        return $post->title;
     }
+
 });
 
-// Update
+// finds the title of the post with id of 2
+Route::get('/find', function(){
+
+    $posts = Post::find(2);
+        return $posts->title;
+
+});
+
+// reading data with condition
+
+Route::get('/findwhere', function () {
+    $posts = Post::where('id',2)->orderBy('id', 'desc')->take(1)->get();
+    return $posts;
+});
+
+//
+
+Route::get('/findmore', function(){
+
+    // $posts = Post::findOrFail(1);
+    // return $posts;
+
+    $posts = Post::where('users_count','<',50)->firstOrFail();
+
+});
+
+// Inserting data
+
+Route::get('/basicinsert', function(){
+
+    $post = new Post;
+    $post->title = 'New ORM title insertion';
+    $post->content = "Wow eloquent is really cool";
+    $post->save();
+});
+
+// Update 1
+
+Route::get('/basicinsert', function(){
+
+    $post = Post::find(2);
+    $post->title = 'New ORM title insertion to 2';
+    $post->content = "Wow eloquent is really cool";
+    $post->save();
+
+});
+
+// Create and allow mass assignment
+Route::get('/create', function(){
+    Post::create(['title' => 'The methos', 'content'=>"WOW i'm learning"]);
+});
+
+// update alt
+
 Route::get('/update', function(){
-    $updated = DB::update('update posts set title="Updated title" where id=?', [1]);
-    return $updated;
+    Post::where('id',2)->where('is_admin', 0)->update(['title'=>'New PHP title', 'content' => 'I love my instructoe']);
 });
 
-// Delete
+// deleting data
 
 Route::get('/delete', function(){
-    $del = DB::delete('delete from posts where id=?', [1]);
-    return $del;
+    $post = Post::find(3);
+    $post->delete();
 });
+
+// deleting alt
+
+Route::get('/deletealt',function(){
+    Post::destroy([5,6]);
+});
+
+//soft deleting (deleting and putting in trash)
+
+Route::get('/softdelete', function(){
+
+    Post::find(2)->delete();
+
+});
+
+// Retrieving deleted data
+
+Route::get('/readsoftdelete', function(){
+
+    // $post = Post::find(2);
+    // return $post;
+
+    // $post = Post::withTrashed()->where('id', 2)->get();
+    // return $post;
+
+    $post = Post::onlyTrashed()->where('is_admin', 0)->get();
+    return $post;
+
+});
+
+// Restoring trashed data
+
+Route::get('/restore', function(){
+    Post::withTrashed()->where('is_admin', 0)->restore();
+});
+
+// Deleting Permanently
+Route::get('/forcedelete', function(){
+    Post::onlyTrashed()->where('is_admin', 0)->forceDelete();
+});
+
