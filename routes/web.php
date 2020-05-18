@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Post;
 use App\User;
 use App\Role;
+use App\Country;
+use App\Photo;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -243,4 +245,42 @@ Route::get('/user/{id}/role', function($id){
     foreach ($user->roles as $role){
         return $role->name;
     }
+});
+
+
+// Accessing the pivot/intermediate table
+// Intermediate or pivot table is a table that links two
+// other tables together
+
+Route::get('user/pivot', function(){
+
+    $user = User::find(1);
+
+    foreach ($user->roles as $role){
+        return $role->pivot->created_at;
+    }
+
+});
+
+// HAs many through relationship
+Route::get('/user/country', function(){
+    $country = Country::find(2);
+    foreach ($country->posts as $post){
+        return $post->title;
+    }
+});
+
+// Polymorphic relations
+
+Route::get('/user/photos', function(){
+    $user = User::find(1);
+    foreach ($user->photos as $photo){
+        return $photo;
+    }
+});
+
+// Inverse Polymorphic relations
+Route::get('photo/{id}/post', function($id){
+    $photo = Photo::findOrFail($id);
+    return $photo->imageable;
 });
