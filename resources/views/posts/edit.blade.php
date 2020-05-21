@@ -4,19 +4,29 @@
 @section('content')
 
 <h1>Edit Post</h1>
-<form method="POST" action="/post/{{$post->id}}">
+{!! Form::model($post, ['method'=>'patch', 'action'=>['NewPostController@update', $post->id]]) !!}
     @csrf
+    <div class="form-group">
+        {!! Form::label('title', 'Post Title') !!}
+        {!! Form::text('title', null, ['class'=> 'form-control']) !!}
+    </div>
 
-    <input type="hidden" name="_method" value="PUT">
-    <input type="text" name="title" value="{{$post->title}}" placeholder="Enter Title"><br/>
-    <input type="text" name="content" value="{{$post->content}}" placeholder="Enter Content"><br/>
-    <input type="submit" name="Update" value="Update">
-</form>
-<form method="POST" action="/post/{{$post->id}}">
+    <div class="form-group">
+        {!! Form::label('content', 'Post Content') !!}
+        {!! Form::text('content', null, ['class'=> 'form-control']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::submit('Update Post', ['class'=>'btn btn-primary']) !!}
+    </div>
+{!! Form::close() !!}
+
+{!! Form::model($post, ['method'=>'delete', 'action'=>['NewPostController@destroy', $post->id]]) !!}
     @csrf
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="submit" name="delete" value="Delete">
-</form>
+    <div class="form-group">
+        {!! Form::submit('Delete Post', ['class'=>'btn btn-primary']) !!}
+    </div>
+{!! Form::close() !!}
+
 @section('footer')
 
 @endsection
