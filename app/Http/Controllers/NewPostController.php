@@ -38,7 +38,10 @@ class NewPostController extends Controller
     public function store(Request $request)
     {
         //
-
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required'
+        ]);
         // return $request->all();
         // return $request->get('title');
         // return $request->title;
