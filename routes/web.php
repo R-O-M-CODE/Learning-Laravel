@@ -308,4 +308,11 @@ Route::get('/', function () {
 -------------------------------------
 */
 
-Route::resource('/post', 'NewPostController');
+
+
+Route::group(['middleware' => 'web'], function () {
+
+
+    Route::resource('/post', 'NewPostController');
+
+});

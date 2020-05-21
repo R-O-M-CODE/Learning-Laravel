@@ -39,7 +39,7 @@ class NewPostController extends Controller
     {
         //
         $this->validate($request, [
-            'title' => 'required',
+            'title' => 'required|max:5',
             'content' => 'required'
         ]);
         // return $request->all();
