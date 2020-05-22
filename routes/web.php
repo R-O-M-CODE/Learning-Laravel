@@ -342,3 +342,9 @@ Route::get('/dates', function (){
     echo Carbon::now()->yesterday()->diffForHumans();
 
 });
+
+//Accessor Pulls data out of database
+Route::get('/getname', function (){
+    $user = User::findOrFail(1);
+    echo $user->name;
+});
