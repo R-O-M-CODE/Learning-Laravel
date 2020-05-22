@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Post;
 use App\User;
@@ -314,5 +315,30 @@ Route::group(['middleware' => 'web'], function () {
 
 
     Route::resource('/post', 'NewPostController');
+
+});
+
+//Dates in Laravel
+Route::get('/dates', function (){
+
+    $date = new DateTime('+1 week');
+
+    echo $date->format('m-d-Y');
+
+    echo '<br/>';
+
+    echo Carbon::now()->addDay(-100)->diffForHumans();
+
+    echo '<br/>';
+
+    echo  Carbon::now()->subMonth(5)->diffForHumans();
+
+    echo '<br/>';
+
+    echo Carbon::now()->yesterday();
+
+    echo '<br/>';
+
+    echo Carbon::now()->yesterday()->diffForHumans();
 
 });
