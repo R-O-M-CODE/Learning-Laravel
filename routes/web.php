@@ -358,3 +358,6 @@ Route::get('/setname', function (){
 
    $user->save();
 });
+
+//Query Scope
+
