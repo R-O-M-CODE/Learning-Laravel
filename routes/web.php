@@ -343,8 +343,18 @@ Route::get('/dates', function (){
 
 });
 
-//Accessor Pulls data out of database
+//Accessor Pulls data out of database in a specific format
 Route::get('/getname', function (){
     $user = User::findOrFail(1);
     echo $user->name;
+});
+
+
+//Mutator insert data into the database in a specific format
+Route::get('/setname', function (){
+   $user = User::find(1);
+
+   $user->name = "olakunle";
+
+   $user->save();
 });
