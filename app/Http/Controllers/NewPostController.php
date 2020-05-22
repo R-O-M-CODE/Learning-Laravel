@@ -37,20 +37,30 @@ class NewPostController extends Controller
      */
     public function store(CreatePostRequest $request)
      {
+         $input = $request->all();
 
-         $file = $request->file('file');
+         if ($file = $request->file('file')){
+             $name = $file->getClientOriginalName();
+             $file->move('images', $name);
 
-         echo "<br/>";
+             $input['path'] = $name;
+         }
 
-         echo $file->getClientOriginalExtension();
-
-         echo "<br/>";
-
-         echo $file->getSize();
-
-         echo "<br/>";
-
-         return $file->getClientOriginalName();
+         Post::create($input);
+//        Uploading Files
+//         $file = $request->file('file');
+//
+//         echo "<br/>";
+//
+//         echo $file->getClientOriginalExtension();
+//
+//         echo "<br/>";
+//
+//         echo $file->getSize();
+//
+//         echo "<br/>";
+//
+//         return $file->getClientOriginalName();
         //
         // $this->validate($request, [
         //     'title' => 'required|max:5',
@@ -60,7 +70,7 @@ class NewPostController extends Controller
         // return $request->get('title');
         // return $request->title;
 
-        Post::create($request->all());
+//        Post::create($request->all());
                 // OR
         // $input = $request->all();
         // $input['title'] = $request->title;
