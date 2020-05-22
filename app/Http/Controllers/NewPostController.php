@@ -41,7 +41,7 @@ class NewPostController extends Controller
 
          if ($file = $request->file('file')){
              $name = $file->getClientOriginalName();
-             $file->move('images', $name);
+             $file->storeAs('images', $name,'public');
 
              $input['path'] = $name;
          }
