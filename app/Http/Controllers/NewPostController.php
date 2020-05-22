@@ -37,6 +37,20 @@ class NewPostController extends Controller
      */
     public function store(CreatePostRequest $request)
      {
+
+         $file = $request->file('file');
+
+         echo "<br/>";
+
+         echo $file->getClientOriginalExtension();
+
+         echo "<br/>";
+
+         echo $file->getSize();
+
+         echo "<br/>";
+
+         return $file->getClientOriginalName();
         //
         // $this->validate($request, [
         //     'title' => 'required|max:5',

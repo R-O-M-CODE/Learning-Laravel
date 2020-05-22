@@ -9,6 +9,8 @@
         @endforeach
     </ul>
 
+    <a href="/post/create" class="btn btn-primary">Add New Post</a>
+
 
 @section('footer')
 @endsection
